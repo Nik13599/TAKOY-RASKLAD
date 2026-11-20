@@ -1,4 +1,4 @@
-import { guestHtml, adminHtml } from './pages.js';
+import { guestHtml, adminHtml, heroSvg } from './pages.js';
 
 const ZODIACS = new Set(['aries','taurus','gemini','cancer','leo','virgo','libra','scorpio','sagittarius','capricorn','aquarius','pisces']);
 const encoder=new TextEncoder();
@@ -30,6 +30,7 @@ function numberFrom(p,prefix){const m=new RegExp('^'+prefix+'([1-9][0-9]{0,9})$'
 export default {async fetch(r,env){try{
  const url=new URL(r.url),p=url.pathname,m=r.method;
  if(m==='GET'&&(p==='/'||p==='/index.html'))return page(guestHtml);
+ if(m==='GET'&&p==='/hero.svg')return res(heroSvg,200,{'Content-Type':'image/svg+xml; charset=utf-8','Cache-Control':'public, max-age=3600'});
  if(m==='GET'&&(p==='/admin'||p==='/admin.html'))return page(adminHtml);
  if(m==='GET'&&p==='/api/health')return json({ok:true});
  if(m==='POST'&&p==='/api/submit'){
